@@ -1,0 +1,12 @@
+{
+	"name": "contact",
+	"properties": [
+		{"name": "name", "type": "string"},
+		{"name": "address", "type": "string"},
+		{"name": "size", "type": "integer"},
+		{"name": "show", "type": "ynglobal"},
+		{"name": "state", "type": "state"},
+		{"name": "currentlyProcessing", "type": "integer"},
+		{"name": "shippedToday", "type": "integer"}
+	]
+}
