@@ -146,7 +146,7 @@ class RepresentationHalJson extends Representation
 			}
 		}
 
-		return json_encode($properties);
+		return json_encode($properties, JSON_PRETTY_PRINT);
 	}
 
 	/**
