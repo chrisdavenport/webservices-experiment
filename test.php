@@ -129,7 +129,7 @@ echo $json . "\n";
 $representation = new RepresentationHalXml;
 $xml = $representation->render($resource);
 echo "\n";
-echo 'Representation as application/hal+json' . "\n";
+echo 'Representation as application/hal+xml' . "\n";
 echo $xml . "\n";
 
 /**
