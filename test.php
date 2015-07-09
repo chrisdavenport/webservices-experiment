@@ -101,7 +101,7 @@ $embeddedResource
 $resource->addEmbedded(array('ea:order' => $embeddedResource));
 
 // And create another resource that will be embedded in the main resource.
-$embeddedResource = new ResourceItem(new Profile('profile/contact.json'));
+$embeddedResource = new ResourceItem(new Profile('profile/order.json'));
 $embeddedResource
 	->addData(array('total' => '20.00', 'currency' => 'USD', 'status' => 'processing'))
 	->addLinks(array(
