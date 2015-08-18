@@ -1,55 +1,51 @@
 <?php
 /**
- * String data type class.
+ * String value object class.
+ *
+ * Implemented as an immutable object with a pair of named constructors.
  */
-class TypeString
+final class TypeString extends Type
 {
 	/**
-	 * Convert an internal value to external format.
+	 * Public named constructor to create a new object from an internal value.
 	 *
 	 * @param   string  $internalValue  Internal value.
 	 *
-	 * @return  string
+	 * @return  TypeString object.
 	 */
-	public function toExternal($internalValue)
+	public static function fromInternal($internalValue)
 	{
-		return $internalValue;
+		if (!is_string($internalValue))
+		{
+			throw new BadMethodCallException('String expected');
+		}
+
+		$string = new TypeString;
+		$string->internal = $internalValue;
+		$string->external = $internalValue;
+
+		return $string;
 	}
 
 	/**
-	 * Convert an external value to internal format.
+	 * Public named constructor to create a new object from an external value.
 	 *
 	 * @param   string  $externalValue  External value.
 	 *
-	 * @return  string
+	 * @return  TypeString object.
 	 */
-	public function toInternal($externalValue)
+	public static function fromExternal($externalValue)
 	{
-		return $externalValue;
-	}
+		if (!is_string($externalValue))
+		{
+			throw new BadMethodCallException('String expected');
+		}
 
-	/**
-	 * Validate an internal value.
-	 *
-	 * @param   string  $internalValue  Internal value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateInternal($internalValue)
-	{
-		return is_string($internalValue);
-	}
+		$string = new TypeString;
+		$string->internal = $externalValue;
+		$string->external = $externalValue;
 
-	/**
-	 * Validate an external value.
-	 *
-	 * @param   string  $externalValue  External value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateExternal($externalValue)
-	{
-		return is_string($externalValue);
+		return $string;
 	}
 }
 

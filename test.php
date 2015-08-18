@@ -30,6 +30,8 @@ require_once 'representation/halxml.php';
 
 require_once 'profile.php';
 
+require_once 'typeinterface.php';
+require_once 'type.php';
 require_once 'type/integer.php';
 require_once 'type/string.php';
 require_once 'type/ynglobal.php';

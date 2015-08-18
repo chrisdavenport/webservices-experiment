@@ -1,95 +1,77 @@
 <?php
 /**
- * Ynglobal data type class.
+ * Ynglobal value object class.
+ *
+ * Implemented as an immutable object with a pair of named constructors.
  */
-class TypeYnglobal
+final class TypeYnglobal extends Type
 {
 	/**
-	 * Convert an internal value to external format.
+	 * Public named constructor to create a new object from an internal value.
 	 *
 	 * @param   string  $internalValue  Internal value.
 	 *
-	 * @return  string
+	 * @return  TypeYnglobal object.
 	 */
-	public function toExternal($internalValue)
+	public static function fromInternal($internalValue)
 	{
-		$externalValue = '';
+		$ynglobal = new TypeYnglobal;
+		$ynglobal->internal = $internalValue;
+		$ynglobal->external = '';
 
 		switch ($internalValue)
 		{
 			case '1':
-				$externalValue = 'yes';
+				$ynglobal->external = 'yes';
 				break;
 
 			case '0':
-				$externalValue = 'no';
+				$ynglobal->external = 'no';
 				break;
 
 			case '':
-				$externalValue = 'global';
+				$ynglobal->external = 'global';
 				break;
 
 			default:
-				throw new UnexpectedValueException('Internal value must be "0", "1" or an empty string, ' . $externalValue . ' given');
+				throw new UnexpectedValueException('Internal value must be "0", "1" or an empty string, ' . $internalValue . ' given');
 		}
 
-		return $externalValue;
+		return $ynglobal;
 	}
 
 	/**
-	 * Convert an external value to internal format.
+	 * Public named constructor to create a new object from an external value.
 	 *
 	 * @param   string  $externalValue  External value.
 	 *
-	 * @return  string
+	 * @return  TypeYnglobal object.
 	 */
-	public function toInternal($externalValue)
+	public static function fromExternal($externalValue)
 	{
-		$internalValue = '';
+		$ynglobal = new TypeYnglobal;
+		$ynglobal->external = $externalValue;
+		$ynglobal->internal = '';
 
 		switch ($externalValue)
 		{
 			case 'yes':
-				$internalValue = '1';
+				$ynglobal->internal = '1';
 				break;
 
 			case 'no':
-				$internalValue = '0';
+				$ynglobal->internal = '0';
 				break;
 
 			case 'global':
-				$internalValue = '';
+				$ynglobal->internal = '';
 				break;
 
 			default:
 				throw new UnexpectedValueException('External value must be "yes", "no" or "global", ' . $externalValue . ' given');
 		}
 
-		return $internalValue;
-	}
-
-	/**
-	 * Validate an internal value.
-	 *
-	 * @param   string  $internalValue  Internal value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateInternal($internalValue)
-	{
-		return ($internalValue == '0' || $internalValue == '1' || $internalValue == '');
-	}
-
-	/**
-	 * Validate an external value.
-	 *
-	 * @param   string  $externalValue  External value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateExternal($externalValue)
-	{
-		return ($externalValue == 'yes' || $externalValue == 'no' || $externalValue == 'global');
+		return $ynglobal;
 	}
 }
 

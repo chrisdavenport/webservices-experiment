@@ -16,11 +16,8 @@ class Profile
 	// Name of the profile.
 	private $name = '';
 
-	// Array of property definition objects.
+	// Array of property definitions.
 	private $properties = array();
-
-	// Array of type objects.
-	private $types = array();
 
 	/**
 	 * Constructor.
@@ -43,9 +40,7 @@ class Profile
 		// Match each property to a data type.
 		foreach ($schema->properties as $property)
 		{
-			$this->properties[$property->name] = (object) array(
-				'type' => $this->getType($property->type),
-			);
+			$this->properties[$property->name] = $property->type;
 		}
 	}
 
@@ -60,7 +55,7 @@ class Profile
 	}
 
 	/**
-	 * Get a property definition.
+	 * Get an individual property definition.
 	 *
 	 * @param   string  $name  Name of the property.
 	 *
@@ -74,23 +69,5 @@ class Profile
 		}
 
 		return $this->properties[$name];
-	}
-
-	/**
-	 * Get a type object, instantiating it if it doesn't exist.
-	 *
-	 * @param   string  $type  Property type.
-	 *
-	 * @return  Type object.
-	 */
-	private function getType($type)
-	{
-		if (!isset($this->types[$type]))
-		{
-			$typeClass = 'type' . ucfirst($type);
-			$this->types[$type] = new $typeClass;
-		}
-
-		return $this->types[$type];
 	}
 }

@@ -39,22 +39,10 @@ class ResourceItem extends Resource
 	{
 		foreach ($data as $name => $datum)
 		{
-			// If the datum is not in the profile, ignore it.
-			if (!$property = $this->profile->getProperty($name))
+			// If the datum is not in the profile, silently ignore it.
+			if (!$propertyType = $this->profile->getProperty($name))
 			{
 				continue;
-			}
-
-			// Validate the internal data before binding it.
-			if ($internal && !$property->type->validateInternal($datum))
-			{
-				throw new UnexpectedValueException('Invalid data for property ' . $name . ': ' . $datum);
-			}
-
-			// Validate the external data before binding it.
-			if (!$internal && !$property->type->validateExternal($datum))
-			{
-				throw new UnexpectedValueException('Invalid data for property ' . $name . ': ' . $datum);
 			}
 
 			// If we don't have a ResourceData object, create one.
@@ -65,18 +53,11 @@ class ResourceItem extends Resource
 
 			// Create a simple object with the property type.
 			$resourceProperty = new stdClass;
-			$resourceProperty->type = $property->type;
+			$resourceProperty->type = $propertyType;
+			$propertyClassName = 'Type' . ucfirst($propertyType);
 
 			// Add the value.
-			if ($internal)
-			{
-				$resourceProperty->internal = $datum;
-			}
-			else
-			{
-				$resourceProperty->external = $datum;
-				$resourceProperty->internal = $property->type->toInternal($datum);
-			}
+			$resourceProperty->value = $internal ? $propertyClassName::fromInternal($datum) : $propertyClassName::fromExternal($datum);
 
 			// Add the object to the resource properties array.
 			$this->data->addProperty($name, $resourceProperty);
@@ -246,7 +227,7 @@ class ResourceItem extends Resource
 
 		foreach ($this->getData()->getProperties() as $name => $property)
 		{
-			$data[$name] = $property->internal;
+			$data[$name] = $property->value->getInternal();
 		}
 
 		return $data;

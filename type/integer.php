@@ -1,55 +1,51 @@
 <?php
 /**
- * Integer data type class.
+ * Integer value object class.
+ *
+ * Implemented as an immutable object with a pair of named constructors.
  */
-class TypeInteger
+final class TypeInteger extends Type
 {
 	/**
-	 * Convert an internal value to external format.
+	 * Public named constructor to create a new object from an internal value.
 	 *
 	 * @param   integer  $internalValue  Internal value.
 	 *
-	 * @return  integer
+	 * @return  TypeInteger object.
 	 */
-	public function toExternal($internalValue)
+	public static function fromInternal($internalValue)
 	{
-		return $internalValue;
+		if (!is_integer($internalValue))
+		{
+			throw new BadMethodCallException('Integer expected');
+		}
+
+		$integer = new TypeInteger;
+		$integer->internal = $internalValue;
+		$integer->external = $internalValue;
+
+		return $integer;
 	}
 
 	/**
-	 * Convert an external value to internal format.
+	 * Public named constructor to create a new object from an external value.
 	 *
 	 * @param   integer  $externalValue  External value.
 	 *
-	 * @return  integer
+	 * @return  TypeInteger object.
 	 */
-	public function toInternal($externalValue)
+	public static function fromExternal($externalValue)
 	{
-		return $externalValue;
-	}
+		if (!is_integer($externalValue))
+		{
+			throw new BadMethodCallException('Integer expected');
+		}
 
-	/**
-	 * Validate an internal value.
-	 *
-	 * @param   integer  $internalValue  Internal value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateInternal($internalValue)
-	{
-		return is_integer($internalValue);
-	}
+		$integer = new TypeInteger;
+		$integer->internal = $externalValue;
+		$integer->external = $externalValue;
 
-	/**
-	 * Validate an external value.
-	 *
-	 * @param   integer  $externalValue  External value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateExternal($externalValue)
-	{
-		return is_integer($externalValue);
+		return $integer;
 	}
 }
 

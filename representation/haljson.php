@@ -64,7 +64,7 @@ class RepresentationHalJson extends Representation
 
 		foreach ($resource->getProperties() as $name => $property)
 		{
-			$data[$name] = $property->type->toExternal($property->internal);
+			$data[$name] = $property->value->getExternal();
 		}
 
 		return $data;

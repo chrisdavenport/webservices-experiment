@@ -1,103 +1,85 @@
 <?php
 /**
- * State data type class.
+ * State value object class.
+ *
+ * Implemented as an immutable object with a pair of named constructors.
  */
-class TypeState
+final class TypeState extends Type
 {
 	/**
-	 * Convert an internal value to external format.
+	 * Public named constructor to create a new object from an internal value.
 	 *
 	 * @param   string  $internalValue  Internal value.
 	 *
-	 * @return  string
+	 * @return  TypeState object.
 	 */
-	public function toExternal($internalValue)
+	public static function fromInternal($internalValue)
 	{
-		$externalValue = '';
+		$state = new TypeState;
+		$state->internal = $internalValue;
+		$state->external = '';
 
 		switch ($internalValue)
 		{
 			case '0':
-				$externalValue = 'unpublished';
+				$state->external = 'unpublished';
 				break;
 
 			case '1':
-				$externalValue = 'published';
+				$state->external = 'published';
 				break;
 
 			case '2':
-				$externalValue = 'archived';
+				$state->external = 'archived';
 				break;
 
 			case '-2':
-				$externalValue = 'trashed';
+				$state->external = 'trashed';
 				break;
 
 			default:
-				throw new UnexpectedValueException('Internal value must be "0", "1", "2" or "-2", ' . $externalValue . ' given');
+				throw new UnexpectedValueException('Internal value must be "0", "1", "2" or "-2", ' . $internalValue . ' given');
 		}
 
-		return $externalValue;
+		return $state;
 	}
 
 	/**
-	 * Convert an external value to internal format.
+	 * Public named constructor to create a new object from an external value.
 	 *
 	 * @param   string  $externalValue  External value.
 	 *
-	 * @return  string
+	 * @return  TypeState object.
 	 */
-	public function toInternal($externalValue)
+	public static function fromExternal($externalValue)
 	{
-		$internalValue = '';
+		$state = new TypeState;
+		$state->external = $externalValue;
+		$state->internal = '';
 
 		switch ($externalValue)
 		{
 			case 'unpublished':
-				$internalValue = '0';
+				$state->internal = '0';
 				break;
 
 			case 'published':
-				$internalValue = '1';
+				$state->internal = '1';
 				break;
 
 			case 'archived':
-				$internalValue = '2';
+				$state->internal = '2';
 				break;
 
 			case 'trashed':
-				$internalValue = '-2';
+				$state->internal = '-2';
 				break;
 
 			default:
 				throw new UnexpectedValueException('External value must be "unpublished", "published", "archived" or "trashed", ' . $externalValue . ' given');
 		}
 
-		return $internalValue;
-	}
-
-	/**
-	 * Validate an internal value.
-	 *
-	 * @param   string  $internalValue  Internal value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateInternal($internalValue)
-	{
-		return ($internalValue == '0' || $internalValue == '1' || $internalValue == '2' || $internalValue == '-2');
-	}
-
-	/**
-	 * Validate an external value.
-	 *
-	 * @param   string  $externalValue  External value.
-	 *
-	 * @return  boolean
-	 */
-	public function validateExternal($externalValue)
-	{
-		return ($externalValue == 'unpublished' || $externalValue == 'published' || $externalValue == 'archived' || $externalValue == 'trashed');
+		return $state;
 	}
 }
 

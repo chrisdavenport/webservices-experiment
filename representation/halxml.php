@@ -46,7 +46,7 @@ class RepresentationHalXml extends Representation
 
 		foreach ($resource->getProperties() as $name => $property)
 		{
-			$xml .= '<' . $name . '>' . $property->type->toExternal($property->internal) . '</' . $name . '>';
+			$xml .= '<' . $name . '>' . $property->value->getExternal() . '</' . $name . '>';
 		}
 
 		return $xml;
