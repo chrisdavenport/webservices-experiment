@@ -1,44 +1,43 @@
 <?php
 /**
- * Ynglobal value object class.
+ * Floating value object class.
  *
  * Implemented as an immutable object with a pair of named constructors.
  */
-final class TypeYnglobal extends Type
+final class TypeFloating extends Type
 {
 	/**
 	 * Public named constructor to create a new object from an internal value.
 	 *
 	 * @param   string  $internalValue  Internal value.
 	 *
-	 * @return  TypeYnglobal object.
+	 * @return  TypeFloating object.
 	 * @throws  \BadMethodCallException
 	 */
 	public static function fromInternal($internalValue)
 	{
-		$ynglobal = new TypeYnglobal;
-		$ynglobal->internal = $internalValue;
+		$floating = new TypeFloating;
+		$floating->internal = $internalValue;
 
 		switch ($internalValue)
 		{
-			case '1':
-				$ynglobal->external = 'yes';
-				break;
-
-			case '0':
-				$ynglobal->external = 'no';
+			case 'left':
+			case 'right':
+			case 'none':
+				$floating->external = $internalValue;
 				break;
 
 			case '':
-				$ynglobal->external = 'global';
+			case 'global':
+				$floating->external = 'global';
 				break;
 
 			default:
-				$message = 'Internal value must be "0", "1" or an empty string, ' . $internalValue . ' given';
+				$message = 'Internal value must be "left", "right", "none", "global" or an empty string, ' . $internalValue . ' given';
 				throw new \BadMethodCallException($message);
 		}
 
-		return $ynglobal;
+		return $floating;
 	}
 
 	/**
@@ -46,35 +45,33 @@ final class TypeYnglobal extends Type
 	 *
 	 * @param   string  $externalValue  External value.
 	 *
-	 * @return  TypeYnglobal object.
+	 * @return  TypeFloating object.
 	 * @throws  \BadMethodCallException
 	 */
 	public static function fromExternal($externalValue)
 	{
-		$ynglobal = new TypeYnglobal;
-		$ynglobal->external = $externalValue;
-		$ynglobal->internal = '';
+		$floating = new TypeFloating;
+		$floating->external = $externalValue;
 
 		switch ($externalValue)
 		{
-			case 'yes':
-				$ynglobal->internal = '1';
+			case 'left':
+			case 'right':
+			case 'none':
+				$floating->internal = $externalValue;
 				break;
 
-			case 'no':
-				$ynglobal->internal = '0';
-				break;
-
+			case '':
 			case 'global':
-				$ynglobal->internal = '';
+				$floating->internal = 'global';
 				break;
 
 			default:
-				$message = 'External value must be "yes", "no" or "global", ' . $externalValue . ' given';
+				$message = 'External value must be "left", "right", "none", "global" or an empty string, ' . $externalValue . ' given';
 				throw new \BadMethodCallException($message);
 		}
 
-		return $ynglobal;
+		return $floating;
 	}
 }
 

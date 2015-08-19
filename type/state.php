@@ -12,6 +12,7 @@ final class TypeState extends Type
 	 * @param   string  $internalValue  Internal value.
 	 *
 	 * @return  TypeState object.
+	 * @throws  \BadMethodCallException
 	 */
 	public static function fromInternal($internalValue)
 	{
@@ -50,6 +51,7 @@ final class TypeState extends Type
 	 * @param   string  $externalValue  External value.
 	 *
 	 * @return  TypeState object.
+	 * @throws  \BadMethodCallException
 	 */
 	public static function fromExternal($externalValue)
 	{
@@ -76,7 +78,8 @@ final class TypeState extends Type
 				break;
 
 			default:
-				throw new UnexpectedValueException('External value must be "unpublished", "published", "archived" or "trashed", ' . $externalValue . ' given');
+				$message = 'External value must be "unpublished", "published", "archived" or "trashed", ' . $externalValue . ' given';
+				throw new UnexpectedValueException($message);
 		}
 
 		return $state;

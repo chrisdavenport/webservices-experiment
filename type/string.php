@@ -12,12 +12,13 @@ final class TypeString extends Type
 	 * @param   string  $internalValue  Internal value.
 	 *
 	 * @return  TypeString object.
+	 * @throws  \BadMethodCallException
 	 */
 	public static function fromInternal($internalValue)
 	{
 		if (!is_string($internalValue))
 		{
-			throw new BadMethodCallException('String expected');
+			throw new \BadMethodCallException('String expected');
 		}
 
 		$string = new TypeString;
@@ -33,12 +34,13 @@ final class TypeString extends Type
 	 * @param   string  $externalValue  External value.
 	 *
 	 * @return  TypeString object.
+	 * @throws  \BadMethodCallException
 	 */
 	public static function fromExternal($externalValue)
 	{
 		if (!is_string($externalValue))
 		{
-			throw new BadMethodCallException('String expected');
+			throw new \BadMethodCallException('String expected');
 		}
 
 		$string = new TypeString;

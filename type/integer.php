@@ -12,12 +12,13 @@ final class TypeInteger extends Type
 	 * @param   integer  $internalValue  Internal value.
 	 *
 	 * @return  TypeInteger object.
+	 * @throws  \BadMethodCallException
 	 */
 	public static function fromInternal($internalValue)
 	{
 		if (!is_integer($internalValue))
 		{
-			throw new BadMethodCallException('Integer expected');
+			throw new \BadMethodCallException('Integer expected');
 		}
 
 		$integer = new TypeInteger;
@@ -33,12 +34,13 @@ final class TypeInteger extends Type
 	 * @param   integer  $externalValue  External value.
 	 *
 	 * @return  TypeInteger object.
+	 * @throws  \BadMethodCallException
 	 */
 	public static function fromExternal($externalValue)
 	{
 		if (!is_integer($externalValue))
 		{
-			throw new BadMethodCallException('Integer expected');
+			throw new \BadMethodCallException('Integer expected');
 		}
 
 		$integer = new TypeInteger;

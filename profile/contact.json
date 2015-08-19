@@ -7,6 +7,11 @@
 		{"name": "show", "type": "ynglobal"},
 		{"name": "state", "type": "state"},
 		{"name": "currentlyProcessing", "type": "integer"},
-		{"name": "shippedToday", "type": "integer"}
+		{"name": "shippedToday", "type": "integer"},
+		{"name": "completed", "type": "boolean"},
+		{"name": "orderDate", "type": "datetime"},
+		{"name": "temperature", "type": "float"},
+		{"name": "imageAlign", "type": "floating"},
+		{"name": "termsandconditions", "type": "target"}
 	]
 }

@@ -44,20 +44,37 @@ abstract class Type implements TypeInterface
 	}
 
 	/**
+	 * Prevent setting undeclared properties.
+	 *
+	 * @param   string  $name   This is an immutable object, setting $name is not allowed.
+	 * @param   mixed   $value  This is an immutable object, setting $value is not allowed.
+	 *
+	 * @return  null  This method always throws an exception.
+	 *
+	 * @throws  \BadMethodCallException
+	 */
+	public function __set($name, $value)
+	{
+		throw new \BadMethodCallException('This is an immutable object');
+	}
+
+	/**
 	 * Public named constructor to create a new object from an internal value.
 	 *
-	 * @param   integer  $internalValue  Internal value.
+	 * @param   mixed  $internalValue  Internal value.
 	 *
 	 * @return  An object of the child's type.
+	 * @throws  \BadMethodCallException
 	 */
 	abstract public static function fromInternal($internalValue);
 
 	/**
 	 * Public named constructor to create a new object from an external value.
 	 *
-	 * @param   integer  $externalValue  External value.
+	 * @param   mixed  $externalValue  External value.
 	 *
 	 * @return  An object of the child's type.
+	 * @throws  \BadMethodCallException
 	 */
 	abstract public static function fromExternal($externalValue);
 

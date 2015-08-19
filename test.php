@@ -32,10 +32,15 @@ require_once 'profile.php';
 
 require_once 'typeinterface.php';
 require_once 'type.php';
+require_once 'type/boolean.php';
+require_once 'type/datetime.php';
+require_once 'type/float.php';
+require_once 'type/floating.php';
 require_once 'type/integer.php';
-require_once 'type/string.php';
-require_once 'type/ynglobal.php';
 require_once 'type/state.php';
+require_once 'type/string.php';
+require_once 'type/target.php';
+require_once 'type/ynglobal.php';
 
 // Instantiate a profile.
 // The profile is here defined using a trivially simple json file,
@@ -57,6 +62,11 @@ $data = array(
 	'notused' => 23,	// This item is not in the profile, so it will be ignored.
 	'currentlyProcessing' => 14,
 	'shippedToday' => 20,
+	'completed' => true,
+	'orderDate' => '2015-08-19 00:21:10',
+	'temperature' => 16.45,
+	'imageAlign' => 'right',
+	'termsandconditions' => 2
 );
 
 // Instantiate a resource with a profile and add some data to it.
